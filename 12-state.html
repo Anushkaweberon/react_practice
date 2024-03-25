@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const rootElement = document.getElementById('root');
+        function Greeting() {
+            const [name, setName] = React.useState('');
+            const handleChange = event => setName(event.target.value);
+            return (
+                <div>
+                    <form>
+                        <label htmlFor='name'>Name: </label>
+                        <input onChange={handleChange} id="name" />
+                    </form>
+                    {name ? <strong>Hello {name}</strong> : 'Please type your name'}
+                </div>
+            );
+        }
+        ReactDOM.render(<Greeting />, rootElement);
+    </script>
+</body>
+
+</html>

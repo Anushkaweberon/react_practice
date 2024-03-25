@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const rootElement = document.getElementById("root")
+        // const firstChild = 'Hello World!'
+        // const secondChild = ',bye'
+        const children = 'Hello world'
+        const className = 'container'
+        // const element = <div className= {className}>{firstChild}{secondChild}</div>
+        // const element = (
+        //     <div className = {className}>
+        //         <span>Hello</span> <strong>World</strong>
+        //     </div>
+        // )
+        // const element = <div className={className} children={firstChild}/>
+        const props = {children, className}
+        const element = <div id='app-root' {...props}/>
+        ReactDOM.render(element, rootElement)
+    </script>
+</body>
+
+</html>

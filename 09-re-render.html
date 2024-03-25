@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        //Without function
+
+        // const time = new Date().toLocaleTimeString()
+        // const element = <div>{time}</div>
+        // ReactDOM.render(element, document.getElementById('root'))
+
+        // With functon
+        function tick(){
+            const time = new Date().toLocaleTimeString()
+            // const element = <div>{time}</div>
+            //If we are doing same thing with js its re-render hole component but in recat its render only particular value.
+            const element = (
+                <div>
+                    <input value={time}/>    
+                    <input value={time}/>    
+                </div>
+            )
+            ReactDOM.render(element, document.getElementById('root'))
+        }
+        tick()
+        setInterval(tick, 1000)
+    </script>
+</body>
+
+</html>
