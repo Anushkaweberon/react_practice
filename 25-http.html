@@ -1,0 +1,70 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <script type="text/babel">
+    function UserInfo({ userName }) {
+      const [user, setUser] = React.useState(null)
+
+      React.useEffect(() => {
+        if (!userName) {
+          return
+        }
+        fetchUser(userName).then(userData => {
+          setUser(userData)
+        })
+      }, [userName])
+
+      if (!userName) {
+        return 'Submit a user name'
+      }
+
+      if (!user) {
+        return '...'
+      }
+
+      return <pre>{JSON.stringify(user, null, 2)}</pre>
+    }
+
+    function App() {
+      const [userName, setUserName] = React.useState('')
+
+      function handleSubmit(event) {
+        event.preventDefault()
+        console.log(event.target.elements.userName.value)
+        setUserName(event.target.elements.userName.value)
+      }
+
+      return (
+        <div>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="userName">User Name</label>
+            <div>
+              <input id="userName" />
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+          <hr />
+          <UserInfo userName={userName} />
+        </div>
+      )
+    }
+
+    function fetchUser(name) {
+  return window
+    .fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    .then(users => {
+      const user = users.find(user => user.username === name);
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return user;
+    });
+}
+
+
+    ReactDOM.render(<App />, document.getElementById('root'))
+  </script>
+</body>
