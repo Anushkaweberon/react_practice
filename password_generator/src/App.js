@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 
 function App() {
 
@@ -7,6 +7,7 @@ function App() {
   const [numberAllowed, setNumberAllowed] = useState(false)
   const [charAllowed, setCharAllowed] = useState(false)
   const [password, setPassword] = useState("")
+  const passwordref = useRef(null)
 
 
   const passwordGenerator = useCallback(() => {
@@ -22,6 +23,16 @@ function App() {
     setPassword(pass)
   }, [length, numberAllowed, charAllowed, setPassword])
 
+  useEffect(()=>{
+    passwordGenerator()
+  },[length, numberAllowed,charAllowed, passwordGenerator])
+
+  const copyPasswordToClipboard = useCallback(()=>{
+    passwordref.current?.select();
+    window.navigator.clipboard.writeText(password)
+    alert(`You have copied "${password}"`);
+  },[password])
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500">
@@ -33,9 +44,11 @@ function App() {
             className="outline-none w-full py-1 px-3"
             placeholder="Password"
             readOnly
+            ref={passwordref}
           />
           <button
-            className='outline-none bg-red-700 text-white px-3 py-0.5 shrink-0'
+            onClick={copyPasswordToClipboard}
+            className='hover:bg-blue-600 outline-none bg-red-700 text-white px-3 py-0.5 shrink-0'
           >copy</button>
         </div>
         <div className='flex text-sm gap-x-2'>
@@ -43,7 +56,7 @@ function App() {
             <input
               type='range'
               min={6}
-              max={50}
+              max={15}
               value={length}
               className='cursor-pointer'
               onChange={(e)=>{setLength(e.target.value)}}  
