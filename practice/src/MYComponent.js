@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 
-export function MyComponent() {
+  export function MyComponent() {
   const [number, setNumber] = useState(1);
   const [inc, setInc] = useState(0);
 
